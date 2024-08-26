@@ -17,23 +17,23 @@ DE::DE(Problem *problem) {
 void DE::initialize() {
     for (int i = 0; i < this->POPULATION_SIZE; i++)
         this->population.push_back(new Individual(this->D));
-    int s1 = (int) (0.5 * this->POPULATION_SIZE);
-    int s2 = (int) (0.8 * this->POPULATION_SIZE);
-    int s3 = (int) (0.9 * this->POPULATION_SIZE);
-    for (int i = s1; i < s2; i++)
-        this->problem->heuristic_initialize(this->population[i]);
-    for (int i = s2; i < s3; i++)
-        this->problem->heuristic_initialize_by_max(this->population[i],
-                                                   [](pair<int, int> pair1, pair<int, int> pair2) {
-                                                       if (pair1.second == pair2.second)
-                                                           return pair1.first > pair2.first;
-                                                       return pair1.second > pair2.second;
-                                                   });
-    for (int i = s3; i < this->POPULATION_SIZE; i++)
-        this->problem->heuristic_initialize_by_max(this->population[i],
-                                                   [](pair<int, int> pair1, pair<int, int> pair2) {
-                                                       return pair1 > pair2;
-                                                   });
+    // int s1 = (int) (0.5 * this->POPULATION_SIZE);
+    // int s2 = (int) (0.8 * this->POPULATION_SIZE);
+    // int s3 = (int) (0.9 * this->POPULATION_SIZE);
+    // for (int i = s1; i < s2; i++)
+    //     this->problem->heuristic_initialize(this->population[i]);
+    // for (int i = s2; i < s3; i++)
+    //     this->problem->heuristic_initialize_by_max(this->population[i],
+    //                                                [](pair<int, int> pair1, pair<int, int> pair2) {
+    //                                                    if (pair1.second == pair2.second)
+    //                                                        return pair1.first > pair2.first;
+    //                                                    return pair1.second > pair2.second;
+    //                                                });
+    // for (int i = s3; i < this->POPULATION_SIZE; i++)
+    //     this->problem->heuristic_initialize_by_max(this->population[i],
+    //                                                [](pair<int, int> pair1, pair<int, int> pair2) {
+    //                                                    return pair1 > pair2;
+    //                                                });
     for (Individual *p: this->population)
         p->fitness = this->problem->evaluate(p);
     sort(this->population.begin(), this->population.end(), compare_individual);
