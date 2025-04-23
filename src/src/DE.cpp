@@ -1,5 +1,6 @@
 #include "DE.h"
 #include "problem.h"
+#include "units.h"
 
 DE::DE(Problem *problem) {
     this->problem = problem;
@@ -77,19 +78,41 @@ Individual *DE::get_best() {
 //     return vk;
 // }
 
+// Individual *DE::mutate(Individual *i1, Individual *i2, Individual *ik, Individual *best, int k) {
+//     auto *vk = new Individual(i1->dim);
+//     vk->state = i1->state - i2->state;
+//     for (int i = 0; i < vk->dim; i++) {
+//         if (random.random() < this->F[k]) {
+//             if (vk->state[i] > 0)       
+//                 vk->state.set(i, 0);
+//             else if (vk->state[i] < 0)
+//                 vk->state.set(i, 1);
+//             else
+//                 vk->state.set(i, ik->state[i]);
+//         } else
+//             vk->state.set(i, ik->state[i]);
+//     }
+
+//     // Vector<double> custom_F = this->problem->RCCQ(best, ik) * this->F[k];
+//     vk->direction = ik->direction + (best->direction - ik->direction) * this->F[k]
+//                     + (i1->direction - i2->direction) * this->F[k];
+//     for (int i = 0; i < vk->dim; i++) {
+//         while (vk->direction[i] < 0)
+//             vk->direction.set(i, vk->direction[i] + D_PI);
+//         while (vk->direction[i] > D_PI)
+//             vk->direction.set(i, vk->direction[i] - D_PI);
+//     }
+//     return vk;
+// }
+
 Individual *DE::mutate(Individual *i1, Individual *i2, Individual *ik, Individual *best, int k) {
     auto *vk = new Individual(i1->dim);
     vk->state = i1->state - i2->state;
     for (int i = 0; i < vk->dim; i++) {
-        if (random.random() < this->F[k]) {
             if (vk->state[i] > 0)       
-                vk->state.set(i, 0);
-            else if (vk->state[i] < 0)
                 vk->state.set(i, 1);
-            else
-                vk->state.set(i, ik->state[i]);
-        } else
-            vk->state.set(i, ik->state[i]);
+            else  
+                vk->state.set(i, 0);
     }
 
     // Vector<double> custom_F = this->problem->RCCQ(best, ik) * this->F[k];
