@@ -278,9 +278,9 @@ void DE::reproduction(int step_loop) {
             delete ok;
         }
     }
-    result.clear();
-    this->POPULATION_SIZE = (int) round((double) (MIN_POPULATION_SIZE - INIT_POPULATION_SIZE)
+    result.clear();    this->POPULATION_SIZE = (int) round((double) (MIN_POPULATION_SIZE - INIT_POPULATION_SIZE)
                                         * step_loop / MAX_GENERATION + INIT_POPULATION_SIZE);
+
     sort(population.begin(), population.end(), compare_individual);
     ARCHIVE_SIZE = (int) (NA * POPULATION_SIZE);
 //    while ((int) population.size() > POPULATION_SIZE) {
@@ -293,10 +293,25 @@ void DE::reproduction(int step_loop) {
     }
 
 }
-
+void write_vector_to_file(const std::vector<std::string>& data, const std::string& filename) {
+    std::ofstream outfile(filename);
+    if (outfile.is_open()) {
+        for (const auto& line : data) {
+            outfile << line << '\n';
+        }
+        outfile.close();
+    } else {
+        std::cerr << "Cannot open file " << filename << " for writing.\n";
+    }
+}
 Individual *DE::run(string output) {
+    std::string input_path = "C:/Users/Admin/LSHADE/data/test_gr3_60sensing.inp";
     initialize();
     int cnt = 0;
+    std::vector<std::string> cq;
+    std::vector<std::string> qbi;
+    std::vector<std::string> ses;
+    Problem *problem = Problem::read_problem(input_path);
     auto *best = get_best();
     history.push_back(best->fitness);
     for (int step_loop = 0; step_loop < MAX_GENERATION; step_loop++) {
@@ -305,23 +320,25 @@ Individual *DE::run(string output) {
         auto best1 = get_best();
         if (best1->fitness > best->fitness)
             best = best1;
-//        if (is_less_than(best1->fitness.first, best->fitness.first))
-//            cnt++;
-//        else if (is_equal(best1->fitness.first, best->fitness.first)) {
-//            if (best1->fitness.second <= best->fitness.second)
-//                cnt++;
-//            else {
-//                cnt = 0;
-//                best = best1;
-//            }
-//        } else {
-//            cnt = 0;
-//            best = best1;
-//        }
-        history.push_back(best->fitness);
-//        if (cnt == NUMBER_CONVERGE_ITERATION)
-//            break;
+        std::ostringstream oss_cq;
+        oss_cq << "Generation " << step_loop << ": " << problem->CQ(best) << ": " << POPULATION_SIZE;
+        cq.push_back(oss_cq.str());
+
+        // Ghi thông tin cho vector qbi
+        std::ostringstream oss_qbi;
+        oss_qbi << "Generation " << step_loop << ": " << problem->QBI(best);
+        qbi.push_back(oss_qbi.str());
+
+        // Ghi thông tin cho vector ses
+        std::ostringstream oss_ses;
+        oss_ses << "Generation " << step_loop << ": " << problem->count_active_sensor(best);
+        ses.push_back(oss_ses.str());
+        
+
     }
+    write_vector_to_file(cq, "cq.txt");
+    write_vector_to_file(qbi, "qbi.txt");
+    write_vector_to_file(ses, "ses.txt");
     return best;
 }
 
