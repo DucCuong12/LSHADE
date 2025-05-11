@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
 #include <cmath>
-
+using namespace std;
 // Hàm để tính tích phân từ y đến x của 1 / (t + c)
 double integrate(double y, double x) {
     return log((x + 1) / (y + 1));
@@ -18,7 +18,7 @@ int main() {
     double y = 3.0;
 
     double result = delta(x, y);
-    printf("Delta(x, y) = %f\n", result);
+    cout<< "Delta(x, y)  "<< result;
 
     return 0;
 }

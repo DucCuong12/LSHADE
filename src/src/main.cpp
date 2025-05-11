@@ -1,6 +1,7 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "DE.h"
 #include <dirent.h>
+#include <filesystem>
 
 using namespace std;
 
@@ -13,6 +14,8 @@ void solve(const string &input_path, const int &index) {
     replace_all(output_path, "data", "result");
     replace_all(output_path, "test", "result");
     replace_all(output_path, ".inp", ".out");
+    filesystem::create_directories(filesystem::path(output_path).parent_path());
+
     Problem *problem = Problem::read_problem(input_path);
     DE solver(problem);
     Individual *solution = solver.run(split(output_path, "/").back());
@@ -35,7 +38,7 @@ void solve(const string &input_path, const int &index) {
 } 
 
 int main() {
-    string root = ".././data/";
+    string root = "C:/Users/Admin/LSHADE/data/";
     vector<string> input_paths;
 
     if (auto dir = opendir(root.c_str())) {
@@ -46,8 +49,8 @@ int main() {
         }
         closedir(dir);
     }
-//    input_paths.clear();
-//    input_paths.emplace_back(root + "test_gr3_60sensing.inp");
+    input_paths.clear();
+    input_paths.emplace_back(root + "test_gr3_60sensing.inp");
     sort(input_paths.begin(), input_paths.end(), [](const string& a, const string& b){
         if (a.size() == b.size())
             return a < b;
@@ -61,4 +64,5 @@ int main() {
         cout << "Try " << i << ": " << clock() << '\n';
     }
     cout << clock() << '\n';
+    // cout << 1;
 }
