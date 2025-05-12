@@ -18,7 +18,7 @@ DE::DE(Problem *problem) {
 void DE::initialize() {
     for (int i = 0; i < this->POPULATION_SIZE; i++)
         this->population.push_back(new Individual(this->D));
-    int s1 = (int) (0.5 * this->POPULATION_SIZE);
+    int s1 = (int) (0.7 * this->POPULATION_SIZE);
     int s2 = (int) (0.8 * this->POPULATION_SIZE);
     int s3 = (int) (0.9 * this->POPULATION_SIZE);
     for (int i = s1; i < s2; i++)
@@ -305,7 +305,7 @@ void write_vector_to_file(const std::vector<std::string>& data, const std::strin
     }
 }
 Individual *DE::run(string output) {
-    std::string input_path = "C:/Users/Admin/LSHADE/data/test_gr3_60sensing.inp";
+    std::string input_path = "C:/Users/Admin/LSHADE/data/test_gr1_120sensor.inp";
     initialize();
     int cnt = 0;
     std::vector<std::string> cq;
@@ -321,7 +321,7 @@ Individual *DE::run(string output) {
         if (best1->fitness > best->fitness)
             best = best1;
         std::ostringstream oss_cq;
-        oss_cq << "Generation " << step_loop << ": " << problem->CQ(best) << ": " << POPULATION_SIZE;
+        oss_cq << "Generation " << step_loop << ": " << problem->CQ(best);
         cq.push_back(oss_cq.str());
 
         // Ghi thông tin cho vector qbi
@@ -336,9 +336,9 @@ Individual *DE::run(string output) {
         
 
     }
-    write_vector_to_file(cq, "cq.txt");
-    write_vector_to_file(qbi, "qbi.txt");
-    write_vector_to_file(ses, "ses.txt");
+    write_vector_to_file(cq, "C:/Users/Admin/LSHADE/result/cq.txt");
+    write_vector_to_file(qbi, "C:/Users/Admin/LSHADE/result/qbi.txt");
+    write_vector_to_file(ses, "C:/Users/Admin/LSHADE/result/ses.txt");
     return best;
 }
 

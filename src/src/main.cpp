@@ -50,19 +50,18 @@ int main() {
         closedir(dir);
     }
     input_paths.clear();
-    input_paths.emplace_back(root + "test_gr3_60sensing.inp");
+    input_paths.emplace_back(root + "test_gr1_120sensor.inp");
     sort(input_paths.begin(), input_paths.end(), [](const string& a, const string& b){
         if (a.size() == b.size())
             return a < b;
         return a.size() < b.size();
     });
     cout << clock() << '\n';
-    for (int i = 0; i <= 4; i++) {
+    for (int i = 0; i <1; i++) {
         cout << "Try " << i << ": " << clock() << '\n';
         for (const auto &input_path: input_paths)
             solve(input_path, i);
         cout << "Try " << i << ": " << clock() << '\n';
     }
     cout << clock() << '\n';
-    // cout << 1;
 }
