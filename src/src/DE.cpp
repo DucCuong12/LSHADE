@@ -5,7 +5,7 @@
 DE::DE(Problem *problem) {
     this->problem = problem;
     this->D = (int) problem->sensors.size();
-    this->INIT_POPULATION_SIZE = 10 * this->D;
+    this->INIT_POPULATION_SIZE = 18 * this->D;
     this->BATCH_SIZE = 6;
     this->POPULATION_SIZE = this->INIT_POPULATION_SIZE;
     this->ARCHIVE_SIZE = (int) this->NA * this->POPULATION_SIZE;

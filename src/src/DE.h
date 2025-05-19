@@ -19,7 +19,7 @@ private:
     int NUMBER_CONVERGE_ITERATION = 250;
     int ARCHIVE_SIZE;
     vector<Individual *> population;
-    double p_percent = 0.05;
+    double p_percent = 0.3;
     int H = 6;
     int BATCH_SIZE = 8;
     double std = 0.1;
