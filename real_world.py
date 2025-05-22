@@ -45,8 +45,8 @@ for (x, y) in targets:
 # Draw points and numbers
 for i, (x, y) in enumerate(positions):
     plt.plot(x, y, 'ro', markersize=1)
-    # circle = plt.Circle((x, y), 100, color='blue', fill=False, linewidth=1)
-    # ax.add_patch(circle)
+    circle = plt.Circle((x, y), 80, color='blue', fill=False, linewidth=1)
+    ax.add_patch(circle)
     # # Draw number
     plt.text(x, y, str(i), color='black', fontsize=8, ha='center', va='center')
 plt.tight_layout()
@@ -56,13 +56,13 @@ plt.show()
 # Write to test_realworld.inp
 with open('data/test_realworld.inp', 'w', encoding='utf-8') as f:
     f.write('90\n')
-    f.write('100\n')
+    f.write('80\n')
     f.write('900,467\n')
     f.write(f'{len(targets)}\n')
     f.write(f'{len(positions)}\n')
     # Write targets: (x, y, a) with a = 1 for each target
     for (x, y) in targets:
-        u = np.random.randint(1, 3)
+        u = np.random.randint(1, 4)
         f.write(f'{x},{y},{u}\n')
     # Write sensors: (x, y)
     for (x, y) in positions:

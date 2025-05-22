@@ -305,7 +305,7 @@ void write_vector_to_file(const std::vector<std::string>& data, const std::strin
     }
 }
 Individual *DE::run(string output) {
-    std::string input_path = "C:/Users/Admin/LSHADE/data/test_gr1_100sensor.inp";
+    std::string input_path = "C:/Users/Admin/LSHADE/data/test_realworld.inp";
     initialize();
     int cnt = 0;
     std::vector<std::string> cq;

@@ -50,7 +50,7 @@ int main() {
         closedir(dir);
     }
     input_paths.clear();
-    input_paths.emplace_back(root + "test_gr1_100sensor.inp");
+    input_paths.emplace_back(root + "test_realworld.inp");
     sort(input_paths.begin(), input_paths.end(), [](const string& a, const string& b){
         if (a.size() == b.size())
             return a < b;
